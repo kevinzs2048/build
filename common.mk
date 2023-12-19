@@ -267,6 +267,7 @@ ifeq ($(CCA_SUPPORT),y)
 DEFCONFIG_EXT2=--br-defconfig build/br-ext/configs/ext2fs.conf
 DEFCONFIG_QEMU=--br-defconfig build/br-ext/configs/qemu.conf
 DEFCONFIG_CPIO=--br-defconfig build/br-ext/configs/cpio.conf
+DEFCONFIG_KVMTOOL=--br-defconfig build/br-ext/configs/kvmtool.conf
 endif
 
 ifeq ($(XEN_BOOT),y)
@@ -361,7 +362,8 @@ else
 	touch $@
 buildroot: .qemu_target
 	@mkdir -p ../out-br
-	@echo 'QEMU_OVERRIDE_SRCDIR=$(QEMU_TARGET_PATH)' > ../out-br/local.mk
+	@echo 'KVMTOOL_OVERRIDE_SRCDIR=$(KVMTOOL_TARGET_PATH)' > ../out-br/local.mk
+	@echo 'QEMU_OVERRIDE_SRCDIR=$(QEMU_TARGET_PATH)' >> ../out-br/local.mk
 	@(cd .. && $(PYTHON3) build/br-ext/scripts/make_def_config.py \
 		--br buildroot --out out-br --br-ext build/br-ext \
 		--top-dir "$(ROOT)" \
@@ -369,6 +371,7 @@ buildroot: .qemu_target
 		$(DEFCONFIG_EXT2) \
 		$(DEFCONFIG_QEMU) \
 		$(DEFCONFIG_CPIO) \
+		$(DEFCONFIG_KVMTOOL) \
 		--make-cmd $(MAKE))
 	@../buildroot/utils/config --file ../out-br/.config --disable BR2_PACKAGE_QEMU_BLOBS
 	@$(MAKE) -C ../out-br all
