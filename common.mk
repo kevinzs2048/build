@@ -356,7 +356,7 @@ buildroot: optee-os optee-rust
 else
 .PHONY: buildroot
 .qemu_target:
-	cp -rpR $(QEMU_PATH) $(QEMU_TARGET_PATH)
+	cp -rpRf $(QEMU_PATH) $(QEMU_TARGET_PATH)
 	cd $(QEMU_TARGET_PATH); ./configure --target-list=aarch64-softmmu; make clean
 	touch $@
 buildroot: .qemu_target
