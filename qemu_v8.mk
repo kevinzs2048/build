@@ -600,7 +600,7 @@ run-only:
 	$(call wait-for-ports,54322,54323)
 	cd $(BINARIES_PATH) && $(QEMU_BUILD)/aarch64-softmmu/qemu-system-aarch64 \
 	 -M virt,virtualization=on,secure=on,gic-version=3 \
-         -M acpi=off -cpu max,x-rme=on,sme=off -m 3G -smp 4 \
+         -M acpi=off -cpu max,x-rme=on,sme=off -m 8G -smp 4 \
          -nographic \
          -bios flash.bin \
 	 -kernel Image \
